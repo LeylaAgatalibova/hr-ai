@@ -3,10 +3,10 @@ import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
 import Candidates from './components/Candidates';
-import AIMatch from './components/AIMatch';
+// import AIMatch from './components/AIMatch';
 import Analytics from './components/Analytics';
 import AIInsights from './components/AIInsights';
-import Generate from './components/Generate';
+import CVAnalyzer from './components/CVAnalyzer';
 import AIAnalysisModal from './components/AIAnalysisModal';
 
 export default function SmartHireAI() {
@@ -27,10 +27,9 @@ export default function SmartHireAI() {
         return <Candidates 
           onRunAIAnalysis={runAIAnalysis}
         />;
-      case 'ai-match':
-        return <AIMatch />;
-      case 'generate':
-        return <Generate />;
+      
+      case 'cv-analyzer':
+        return <CVAnalyzer />;
       case 'analytics':
         return <Analytics />;
       default:

@@ -78,19 +78,67 @@
 
 
 
-// utils/fileParser.js - SADƏ VERSİYA
-export const extractTextFromFile = async (file) => {
+import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist/legacy/build/pdf.js';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.js?url';
+import * as mammoth from 'mammoth/mammoth.browser.js';
+
+GlobalWorkerOptions.workerSrc = pdfWorker;
+
+const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const PDF_MIME = 'application/pdf';
+
+const extractTextFromPdf = async (file) => {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await getDocument({ data: arrayBuffer }).promise;
+
+  let text = '';
+
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+    const page = await pdf.getPage(pageNumber);
+    const content = await page.getTextContent();
+    const pageText = content.items.map((item) => item.str || '').join(' ');
+    text += `${pageText}\n`;
+  }
+
+  return text.trim();
+};
+
+const extractTextFromDocx = async (file) => {
+  const arrayBuffer = await file.arrayBuffer();
+  const result = await mammoth.extractRawText({ arrayBuffer });
+  return (result.value || '').trim();
+};
+
+const fallbackRead = async (file) => {
   try {
-    console.log('📁 Fayl:', file.name, 'Ölçü:', file.size + ' bytes');
-    
-    if (file.type === 'text/plain') {
-      return await file.text();
-    } else {
-      // PDF, DOCX və digərləri üçün sadəcə fayl adını qaytar
-      return `FAYL_ADI:${file.name}`;
+    return await file.text();
+  } catch (innerError) {
+    console.error('Fallback oxu xətası:', innerError);
+    return '';
+  }
+};
+
+export const extractTextFromFile = async (file) => {
+  if (!file) {
+    return '';
+  }
+
+  try {
+    if (file.type === PDF_MIME) {
+      return await extractTextFromPdf(file);
     }
+
+    if (file.type === DOCX_MIME) {
+      return await extractTextFromDocx(file);
+    }
+
+    if (file.type === 'text/plain' || file.type === 'application/json') {
+      return await file.text();
+    }
+
+    return await fallbackRead(file);
   } catch (error) {
     console.error('Fayl oxuma xətası:', error);
-    return `FAYL_ADI:${file.name}`;
+    return await fallbackRead(file);
   }
 };

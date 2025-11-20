@@ -302,7 +302,7 @@ export default function AIInsights() {
         </div>
 
         {/* Navigation */}
-        {/* <div className="bg-white rounded-xl p-2 shadow-sm mb-8">
+        <div className="bg-white rounded-xl p-2 shadow-sm mb-8">
           <div className="flex gap-1">
             {['overview', 'predictions', 'recommendations'].map(insight => (
               <button
@@ -318,25 +318,8 @@ export default function AIInsights() {
               </button>
             ))}
           </div>
-        </div> */}
+        </div>
 
-<div className="bg-white rounded-xl p-2 shadow-sm mb-8">
-  <div className="flex gap-1 overflow-x-auto">
-    {['overview', 'predictions', 'recommendations'].map(insight => (
-      <button
-        key={insight}
-        onClick={() => setActiveInsight(insight)}
-        className={`px-6 py-3 font-medium capitalize rounded-lg transition-all whitespace-nowrap ${
-          activeInsight === insight
-            ? 'bg-purple-600 text-white shadow-md'
-            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-        }`}
-      >
-        {insight}
-      </button>
-    ))}
-  </div>
-</div>
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Insights Panel */}
@@ -401,7 +384,7 @@ export default function AIInsights() {
               )}
             </div>
 
-            {/* Candidate Success Predictions
+            {/* Candidate Success Predictions */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <h3 className="text-lg font-bold mb-4">Candidate Success Predictions</h3>
               <div className="space-y-3">
@@ -433,41 +416,7 @@ export default function AIInsights() {
                   </div>
                 ))}
               </div>
-            </div> */}
-
-            {/* Candidate Success Predictions */}
-<div className="bg-white rounded-xl p-6 shadow-sm">
-  <h3 className="text-lg font-bold mb-4">Candidate Success Predictions</h3>
-  <div className="space-y-3">
-    {candidatePredictions.map((candidate, idx) => (
-      <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-50 rounded-lg gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full flex items-center justify-center text-white font-semibold">
-            {candidate.name.charAt(0)}
-          </div>
-          <div>
-            <p className="font-medium">{candidate.name}</p>
-            <p className="text-sm text-gray-600">{candidate.role}</p>
-          </div>
-        </div>
-        <div className="flex gap-3 sm:gap-6 text-sm justify-between sm:justify-normal">
-          <div className="text-center">
-            <p className="font-semibold text-green-600">{candidate.successProbability}%</p>
-            <p className="text-gray-500">Success</p>
-          </div>
-          <div className="text-center">
-            <p className="font-semibold text-blue-600">{candidate.retentionScore}%</p>
-            <p className="text-gray-500">Retention</p>
-          </div>
-          <div className="text-center">
-            <p className="font-semibold text-purple-600">{candidate.rampUpTime}</p>
-            <p className="text-gray-500">Ramp Up</p>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+            </div>
           </div>
 
           {/* Sidebar */}

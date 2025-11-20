@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sparkles, CheckCircle, Brain, Star } from 'lucide-react';
+import { Sparkles, CheckCircle, Brain, Star, CalendarClock, ExternalLink } from 'lucide-react';
 
-export default function CandidateCard({ candidate, onRunAIAnalysis, onUpdateStatus }) {
+export default function CandidateCard({ candidate, onRunAIAnalysis, onUpdateStatus, onViewProfile }) {
   const getStatusColor = (status) => {
     const colors = {
       screening: 'bg-blue-100 text-blue-700',
@@ -71,7 +71,18 @@ export default function CandidateCard({ candidate, onRunAIAnalysis, onUpdateStat
             </div>
           </div>
 
-          <div className="flex gap-3 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <CalendarClock className="w-4 h-4 text-purple-500" />
+              <span>Last touch: {candidate.lastInteraction}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CalendarClock className="w-4 h-4 text-blue-500" />
+              <span>Availability: {candidate.availability}</span>
+            </div>
+          </div>
+
+          <div className="flex gap-3 mt-5 flex-wrap">
             <button
               onClick={() => onRunAIAnalysis(candidate)}
               className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all flex items-center gap-2"
@@ -86,7 +97,11 @@ export default function CandidateCard({ candidate, onRunAIAnalysis, onUpdateStat
               <CheckCircle className="w-4 h-4" />
               Move to Interview
             </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              onClick={() => onViewProfile?.(candidate)}
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+            >
+              <ExternalLink className="w-4 h-4" />
               View Profile
             </button>
           </div>
