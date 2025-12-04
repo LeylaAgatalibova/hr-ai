@@ -3,7 +3,7 @@ import React from 'react';
 export default function Navigation({ activeTab, onTabChange }) {
   const tabs = [
     { id: 'dashboard', label: 'Dashboard' },
-    { id: 'candidates', label: 'Candidates' },
+    // { id: 'candidates', label: 'Candidates' },
     { id: 'email-cvs', label: 'Email CVs' },
     { id: 'cv-analyzer', label: 'CV Analyzer' },
     { id: 'analytics', label: 'Analytics' }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
-import Candidates from './components/Candidates';
+// import Candidates from './components/Candidates';
 // import AIMatch from './components/AIMatch';
 import Analytics from './components/Analytics';
 import AIInsights from './components/AIInsights';
@@ -33,10 +33,10 @@ export default function SmartHireAI() {
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
-      case 'candidates':
-        return <Candidates 
-          onRunAIAnalysis={runAIAnalysis}
-        />;
+      // case 'candidates':
+      //   return <Candidates 
+      //     onRunAIAnalysis={runAIAnalysis}
+      //   />;
       case 'email-cvs':
         return <EmailCVs onImportToAnalyzer={handleImportToAnalyzer} />;
       case 'cv-analyzer':
